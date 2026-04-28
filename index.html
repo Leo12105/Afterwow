@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After WoW - Servidor Privado WotLK x5</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #c9a84c;
+            --gold-light: #e8d48b;
+            --gold-dark: #8b6914;
+            --blue-dark: #0a0e1a;
+            --blue-medium: #121832;
+            --blue-light: #1a2342;
+            --red-wow: #8b0000;
+            --red-light: #c41e3a;
+            --text-light: #e0d6c2;
+            --text-white: #f5f0e1;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--blue-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(10, 14, 26, 0.98) 0%, rgba(10, 14, 26, 0.85) 100%);
+            border-bottom: 2px solid var(--gold-dark);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 14, 26, 0.98);
+            box-shadow: 0 4px 30px rgba(201, 168, 76, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        .nav-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-decoration: none;
+            text-shadow: 0 0 20px rgba(201, 168, 76, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo span {
+            color: var(--red-light);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #0a0e1a 0%, #121832 30%, #1a1a2e 50%, #16213e 70%, #0a0e1a 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(26, 35, 66, 0.5) 0%, transparent 50%);
+        }
+
+        .hero-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-particle 6s infinite;
+        }
+
+        @keyframes float-particle {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.2; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(201, 168, 76, 0.2), rgba(139, 0, 0, 0.2));
+            border: 1px solid var(--gold-dark);
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 10px rgba(201, 168, 76, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(201, 168, 76, 0.4); }
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow:
+                0 0 40px rgba(201, 168, 76, 0.4),
+                0 0 80px rgba(201, 168, 76, 0.2),
+                0 4px 8px rgba(0, 0, 0, 0.8);
+            margin-bottom: 10px;
+            letter-spacing: 5px;
+            animation: title-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes title-glow {
+            0%, 100% { text-shadow: 0 0 40px rgba(201, 168, 76, 0.4), 0 0 80px rgba(201, 168, 76, 0.2); }
+            50% { text-shadow: 0 0 60px rgba(201, 168, 76, 0.6), 0 0 120px rgba(201, 168, 76, 0.3); }
+        }
+
+        .hero-title span {
+            color: var(--red-light);
+            text-shadow:
+                0 0 40px rgba(196, 30, 58, 0.4),
+                0 0 80px rgba(196, 30, 58, 0.2);
+        }
+
+        .hero-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .hero-expansion {
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark));
+            color: var(--blue-dark);
+            padding: 16px 45px;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(201, 168, 76, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            padding: 16px 45px;
+            border: 2px solid var(--gold-dark);
+            border-radius: 5px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(201, 168, 76, 0.1);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(201, 168, 76, 0.2);
+        }
+
+        /* ========== SECTIONS GENERAL ========== */
+        .section {
+            padding: 100px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 60px;
+            opacity: 0.8;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 15px auto 20px;
+        }
+
+        /* ========== REGISTER SECTION ========== */
+        .register-section {
+            background: linear-gradient(135deg, var(--blue-dark), var(--blue-medium), var(--blue-dark));
+            padding: 100px 30px;
+            position: relative;
+        }
+
+        .register-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 50%, rgba(201, 168, 76, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 50%, rgba(139, 0, 0, 0.05) 0%, transparent 50%);
+        }
+
+        .register-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .register-form {
+            background: linear-gradient(145deg, rgba(18, 24, 50, 0.9), rgba(26, 35, 66, 0.9));
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 15px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(201, 168, 76, 0.05);
+        }
+
+        .register-form h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .register-form p {
+            text-align: center;
+            color: var(--text-light);
+            opacity: 0.7;
+            margin-bottom: 35px;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--gold-light);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(10, 14, 26, 0.8);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 8px;
+            color: var(--text-white);
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+            background: rgba(10, 14, 26, 0.95);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(224, 214, 194, 0.3);
+        }
+
+        .password-requirements {
+            font-size: 0.8rem;
+            color: rgba(224, 214, 194, 0.4);
+            margin-top: 5px;
+        }
+
+        .btn-register {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark));
+            color: var(--blue-dark);
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(201, 168, 76, 0.5);
+        }
+
+        .form-message {
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .form-message.success {
+            display: block;
+            background: rgba(34, 139, 34, 0.2);
+            border: 1px solid rgba(34, 139, 34, 0.5);
+            color: #4caf50;
+        }
+
+        .form-message.error {
+            display: block;
+            background: rgba(139, 0, 0, 0.2);
+            border: 1px solid rgba(139, 0, 0, 0.5);
+            color: var(--red-light);
+        }
+
+        /* ========== FEATURES ========== */
+        .features-section {
+            background: var(--blue-dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, rgba(18, 24, 50, 0.8), rgba(26, 35, 66, 0.6));
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(201, 168, 76, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(201, 168, 76, 0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        /* ========== HOW TO CONNECT ========== */
+        .connect-section {
+            background: linear-gradient(135deg, var(--blue-medium), var(--blue-dark));
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        .step-number {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: rgba(201, 168, 76, 0.15);
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .step-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .step-card p {
+            color: var(--text-light);
+            opacity: 0.7;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .realmlist-box {
+            background: rgba(10, 14, 26, 0.8);
+            border: 1px solid var(--gold-dark);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .realmlist-box h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .realmlist-code {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 8px;
+            padding: 15px 25px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #4caf50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .btn-copy {
+            background: var(--gold-dark);
+            color: var(--blue-dark);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-copy:hover {
+            background: var(--gold);
+        }
+
+        /* ========== DOWNLOAD ========== */
+        .download-section {
+            background: var(--blue-dark);
+        }
+
+        .download-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, rgba(18, 24, 50, 0.9), rgba(26, 35, 66, 0.9));
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 15px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .download-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .download-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .download-card p {
+            color: var(--text-light);
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+
+        .download-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .download-info span {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .download-info strong {
+            color: var(--gold);
+        }
+
+        /* ========== SERVER STATUS ========== */
+        .status-bar {
+            background: linear-gradient(135deg, var(--blue-medium), var(--blue-light));
+            border-top: 1px solid rgba(201, 168, 76, 0.2);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+            padding: 20px 30px;
+        }
+
+        .status-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4caf50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(76, 175, 80, 0.8); }
+        }
+
+        .status-dot.offline {
+            background: var(--red-light);
+            box-shadow: 0 0 10px rgba(196, 30, 58, 0.5);
+            animation: none;
+        }
+
+        .status-text {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .status-text strong {
+            color: var(--gold);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: linear-gradient(180deg, var(--blue-dark), #050710);
+            border-top: 1px solid rgba(201, 168, 76, 0.2);
+            padding: 50px 30px 30px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: var(--red-light);
+        }
+
+        .footer p {
+            color: var(--text-light);
+            opacity: 0.5;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            opacity: 0.3;
+            max-width: 600px;
+            margin: 20px auto 0;
+            line-height: 1.5;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 14, 26, 0.98);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+                border-bottom: 2px solid var(--gold-dark);
+                gap: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                letter-spacing: 3px;
+            }
+
+            .hero-stats {
+                gap: 25px;
+            }
+
+            .stat-value {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .register-form {
+                padding: 35px 25px;
+            }
+
+            .realmlist-code {
+                flex-direction: column;
+                font-size: 0.9rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">AFTER <span>WoW</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#registro">Registro</a></li>
+                <li><a href="#caracteristicas">Características</a></li>
+                <li><a href="#conectar">Conectar</a></li>
+                <li><a href="#descargar">Descargar</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SERVER STATUS BAR -->
+    <div class="status-bar" style="margin-top: 65px;">
+        <div class="status-container">
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span class="status-text"><strong>After WoW</strong> — Online</span>
+            </div>
+            <div class="status-item">
+                <span class="status-text">⚔️ Expansión: <strong>WotLK 3.3.5a</strong></span>
+            </div>
+            <div class="status-item">
+                <span class="status-text">🎯 Rates: <strong>x5</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-particles">
+            <div class="particle" style="left:10%; animation-delay:0s; animation-duration:5s;"></div>
+            <div class="particle" style="left:20%; animation-delay:1s; animation-duration:7s;"></div>
+            <div class="particle" style="left:30%; animation-delay:2s; animation-duration:6s;"></div>
+            <div class="particle" style="left:40%; animation-delay:0.5s; animation-duration:8s;"></div>
+            <div class="particle" style="left:50%; animation-delay:3s; animation-duration:5.5s;"></div>
+            <div class="particle" style="left:60%; animation-delay:1.5s; animation-duration:6.5s;"></div>
+            <div class="particle" style="left:70%; animation-delay:2.5s; animation-duration:7.5s;"></div>
+            <div class="particle" style="left:80%; animation-delay:0.8s; animation-duration:5.8s;"></div>
+            <div class="particle" style="left:90%; animation-delay:3.5s; animation-duration:6.2s;"></div>
+            <div class="particle" style="left:15%; animation-delay:4s; animation-duration:7.2s;"></div>
+            <div class="particle" style="left:55%; animation-delay:1.2s; animation-duration:5.3s;"></div>
+            <div class="particle" style="left:75%; animation-delay:2.8s; animation-duration:6.8s;"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">⚔️ Servidor Privado WotLK 3.3.5a</div>
+            <h1 class="hero-title">AFTER <span>WoW</span></h1>
+            <p class="hero-subtitle">Wrath of the Lich King</p>
+            <p class="hero-expansion">Revive la mejor expansión de World of Warcraft — Rates x5</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-value">x5</div>
+                    <div class="stat-label">Rates</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">3.3.5a</div>
+                    <div class="stat-label">Versión</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">Online</div>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#registro" class="btn-primary">⚔️ Crear Cuenta</a>
+                <a href="#conectar" class="btn-secondary">📖 Cómo Conectar</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- REGISTER -->
+    <section class="register-section" id="registro">
+        <div class="register-container">
+            <div class="section-title" style="margin-bottom: 5px;">Crear Cuenta</div>
+            <div class="section-divider"></div>
+            <p class="section-subtitle" style="margin-bottom: 40px;">Únete a After WoW y comienza tu aventura</p>
+
+            <div class="register-form">
+                <h2>⚔️ Registro</h2>
+                <p>Crea tu cuenta para ingresar al mundo</p>
+
+                <form id="registerForm" onsubmit="return handleRegister(event)">
+                    <div class="form-group">
+                        <label for="username">👤 Usuario</label>
+                        <input type="text" id="username" name="username" placeholder="Ingresa tu nombre de usuario" required minlength="4" maxlength="16">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">📧 Correo Electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">🔒 Contraseña</label>
+                        <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required minlength="6">
+                        <div class="password-requirements">Mínimo 6 caracteres</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">🔒 Confirmar Contraseña</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repite tu contraseña" required>
+                    </div>
+
+                    <button type="submit" class="btn-register">⚔️ Crear Cuenta</button>
+
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features-section" id="caracteristicas">
+        <div class="section" style="padding-top: 80px; padding-bottom: 80px;">
+            <h2 class="section-title fade-in">Características</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle fade-in">¿Por qué jugar en After WoW?</p>
+
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⚔️</div>
+                    <h3>WotLK 3.3.5a</h3>
+                    <p>Revive la mejor expansión de WoW. Todo el contenido de Wrath of the Lich King disponible: Naxxramas, Ulduar, ICC y más.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Rates x5</h3>
+                    <p>Sube de nivel más rápido sin perder la esencia del juego. Rates x5 en experiencia, reputación, profesiones y drop.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Anti-Cheat</h3>
+                    <p>Sistema avanzado anti-cheat para garantizar una experiencia justa y limpia para todos los jugadores.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌍</div>
+                    <h3>100% Blizzlike</h3>
+                    <p>Scripts, dungeons y raids funcionando correctamente. La experiencia más fiel al WoW original.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">👥</div>
+                    <h3>Comunidad Activa</h3>
+                    <p>Una comunidad amigable y activa esperando por ti. Encuentra grupo para dungeons, raids y PvP.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🖥️</div>
+                    <h3>Servidor Estable</h3>
+                    <p>Servidor online 24/7 con baja latencia y alta estabilidad. Tu aventura nunca se detiene.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO CONNECT -->
+    <section class="connect-section" id="conectar">
+        <div class="section">
+            <h2 class="section-title fade-in">Cómo Conectarse</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle fade-in">Sigue estos sencillos pasos para comenzar a jugar</p>
+
+            <div class="steps-container">
+                <div class="step-card fade-in">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">📝</div>
+                    <h3>Crea tu Cuenta</h3>
+                    <p>Regístrate en nuestra página web con tu usuario, correo y contraseña.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">📥</div>
+                    <h3>Descarga el Cliente</h3>
+                    <p>Descarga el cliente de WoW 3.3.5a desde nuestra sección de descargas.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">📝</div>
+                    <h3>Configura el Realmlist</h3>
+                    <p>Abre el archivo realmlist.wtf en la carpeta Data/esES/ y cambia el realmlist.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">🎮</div>
+                    <h3>¡A Jugar!</h3>
+                    <p>Abre WoW, ingresa tu usuario y contraseña, ¡y comienza tu aventura!</p>
+                </div>
+            </div>
+
+            <div class="realmlist-box fade-in">
+                <h3>📋 Realmlist</h3>
+                <div class="realmlist-code">
+                    <span id="realmlistText">set realmlist afterwow.qvacloud.com</span>
+                    <button class="btn-copy" onclick="copyRealmlist()">📋 Copiar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD -->
+    <section class="download-section" id="descargar">
+        <div class="section">
+            <h2 class="section-title fade-in">Descargas</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle fade-in">Descarga todo lo necesario para jugar</p>
+
+            <div class="download-card fade-in">
+                <div class="download-icon">📥</div>
+                <h3>Cliente WoW 3.3.5a</h3>
+                <p>Descarga el cliente completo de World of Warcraft: Wrath of the Lich King</p>
+                <div class="download-info">
+                    <span>📦 Versión: <strong>3.3.5a (12340)</strong></span>
+                    <span>💾 Tamaño: <strong>~15 GB</strong></span>
+                </div>
+                <a href="#" class="btn-primary" onclick="alert('Configura aquí el link de descarga de tu cliente'); return false;">📥 Descargar Cliente</a>
+                <p style="margin-top: 20px; font-size: 0.85rem; opacity: 0.5;">Recuerda configurar el realmlist después de la descarga</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">AFTER <span>WoW</span></div>
+        <p>Servidor Privado de World of Warcraft — WotLK 3.3.5a — Rates x5</p>
+        <p>© 2024 After WoW. Todos los derechos reservados.</p>
+        <div class="footer-disclaimer">
+            After WoW no está afiliado ni respaldado por Blizzard Entertainment®.
+            World of Warcraft® y Blizzard Entertainment® son marcas registradas de Activision Blizzard, Inc.
+            Este es un proyecto sin fines de lucro creado por fans.
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger menu
+        document.getElementById('hamburger').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Copy realmlist
+        function copyRealmlist() {
+            const text = document.getElementById('realmlistText').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.btn-copy');
+                btn.textContent = '✅ ¡Copiado!';
+                btn.style.background = '#4caf50';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copiar';
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        // Register form handler
+        function handleRegister(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const messageDiv = document.getElementById('formMessage');
+
+            // Validations
+            if (username.length < 4) {
+                showMessage('El usuario debe tener al menos 4 caracteres', 'error');
+                return false;
+            }
+
+            if (password.length < 6) {
+                showMessage('La contraseña debe tener al menos 6 caracteres', 'error');
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                showMessage('Las contraseñas no coinciden', 'error');
+                return false;
+            }
+
+            // Success message (visual only - needs backend)
+            showMessage('✅ ¡Cuenta creada exitosamente! Ya puedes iniciar sesión en el juego.', 'success');
+            document.getElementById('registerForm').reset();
+
+            return false;
+        }
+
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('formMessage');
+            messageDiv.textContent = text;
+            messageDiv.className = 'form-message ' + type;
+            messageDiv.style.display = 'block';
+
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Fade in animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>
