@@ -34,7 +34,7 @@
 
         .container {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
@@ -90,7 +90,7 @@
 
         .hero {
             text-align: center;
-            padding: 80px 20px;
+            padding: 60px 20px 40px;
             position: relative;
             z-index: 2;
         }
@@ -192,29 +192,30 @@
             font-weight: bold;
         }
 
-        /* ROBOT REALISTA CON SVG */
+        /* ROBOT REALISTA - MÁS ARRIBA Y ANIMADO */
         .robot-container {
             position: fixed;
-            top: 50%;
+            top: 15%;
             left: -150px;
-            transform: translateY(-50%);
-            z-index: 5;
+            transform: translateY(0);
+            z-index: 1;
             animation: runAcross 20s linear infinite;
             width: 140px;
             height: 200px;
+            pointer-events: none;
         }
 
         @keyframes runAcross {
             0% {
                 left: -150px;
-                transform: translateY(-50%) scaleX(1);
+                transform: scaleX(1);
             }
             50% {
-                transform: translateY(-50%) scaleX(1);
+                transform: scaleX(1);
             }
             100% {
                 left: 100vw;
-                transform: translateY(-50%) scaleX(-1);
+                transform: scaleX(-1);
             }
         }
 
@@ -230,6 +231,33 @@
             }
             50% {
                 text-shadow: 0 0 40px rgba(0, 255, 150, 0.8);
+            }
+        }
+
+        @keyframes armSwing {
+            0%, 100% {
+                transform: rotateZ(-35deg);
+            }
+            50% {
+                transform: rotateZ(35deg);
+            }
+        }
+
+        @keyframes legWalk {
+            0%, 100% {
+                transform: rotateZ(-25deg);
+            }
+            50% {
+                transform: rotateZ(25deg);
+            }
+        }
+
+        @keyframes bobbing {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
             }
         }
 
@@ -259,6 +287,7 @@
             .robot-container {
                 width: 100px;
                 height: 150px;
+                top: 10%;
             }
         }
     </style>
@@ -267,65 +296,71 @@
     <!-- Robot realista corriendo -->
     <div class="robot-container">
         <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
-            <!-- Cabeza -->
-            <g id="head">
-                <rect x="35" y="5" width="30" height="35" rx="3" fill="#2a4d7c" stroke="#00ff96" stroke-width="2"/>
-                <!-- Cara frontal metálica -->
-                <rect x="40" y="10" width="20" height="25" rx="2" fill="#1a3a5c" stroke="#00bfff" stroke-width="1"/>
-                <!-- Ojo izquierdo -->
-                <circle cx="47" cy="18" r="4" fill="#ffff00"/>
-                <circle cx="47" cy="18" r="2.5" fill="#000"/>
-                <!-- Ojo derecho -->
-                <circle cx="58" cy="18" r="4" fill="#ffff00"/>
-                <circle cx="58" cy="18" r="2.5" fill="#000"/>
-                <!-- Línea de boca -->
-                <line x1="47" y1="30" x2="58" y2="30" stroke="#00ff96" stroke-width="1.5"/>
+            <!-- Movimiento de rebote general -->
+            <g style="animation: bobbing 0.6s ease-in-out infinite;">
+                
+                <!-- Cabeza -->
+                <g id="head">
+                    <rect x="35" y="5" width="30" height="35" rx="3" fill="#2a4d7c" stroke="#00ff96" stroke-width="2"/>
+                    <rect x="40" y="10" width="20" height="25" rx="2" fill="#1a3a5c" stroke="#00bfff" stroke-width="1"/>
+                    
+                    <!-- Ojo izquierdo -->
+                    <circle cx="47" cy="18" r="4" fill="#ffff00"/>
+                    <circle cx="47" cy="18" r="2.5" fill="#000"/>
+                    
+                    <!-- Ojo derecho -->
+                    <circle cx="58" cy="18" r="4" fill="#ffff00"/>
+                    <circle cx="58" cy="18" r="2.5" fill="#000"/>
+                    
+                    <!-- Línea de boca -->
+                    <line x1="47" y1="30" x2="58" y2="30" stroke="#00ff96" stroke-width="1.5"/>
+                </g>
+
+                <!-- Cuello -->
+                <rect x="42" y="38" width="16" height="8" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
+
+                <!-- Torso superior -->
+                <g id="torso">
+                    <rect x="30" y="45" width="40" height="35" rx="2" fill="#2a4d7c" stroke="#00bfff" stroke-width="2"/>
+                    <rect x="35" y="50" width="30" height="25" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
+                    
+                    <!-- Luces del pecho animadas -->
+                    <circle cx="43" cy="57" r="2.5" fill="#ff00ff"/>
+                    <circle cx="57" cy="57" r="2.5" fill="#ff00ff"/>
+                    <circle cx="43" cy="67" r="2.5" fill="#00ffff"/>
+                    <circle cx="57" cy="67" r="2.5" fill="#00ffff"/>
+                </g>
+
+                <!-- Brazo izquierdo (animado) -->
+                <g id="left-arm" style="transform-origin: 30px 60px; animation: armSwing 0.8s ease-in-out infinite;">
+                    <rect x="15" y="55" width="15" height="12" rx="3" fill="#2a4d7c" stroke="#00ff96" stroke-width="1.5"/>
+                    <rect x="8" y="58" width="8" height="6" rx="2" fill="#1a3a5c" stroke="#00bfff" stroke-width="1"/>
+                </g>
+
+                <!-- Brazo derecho (animado) -->
+                <g id="right-arm" style="transform-origin: 70px 60px; animation: armSwing 0.8s ease-in-out infinite 0.4s;">
+                    <rect x="70" y="55" width="15" height="12" rx="3" fill="#2a4d7c" stroke="#00ff96" stroke-width="1.5"/>
+                    <rect x="84" y="58" width="8" height="6" rx="2" fill="#1a3a5c" stroke="#00bfff" stroke-width="1"/>
+                </g>
+
+                <!-- Cintura -->
+                <rect x="35" y="78" width="30" height="6" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
+
+                <!-- Pierna izquierda (animada) -->
+                <g id="left-leg" style="transform-origin: 42px 84px; animation: legWalk 0.8s ease-in-out infinite;">
+                    <rect x="38" y="84" width="8" height="30" rx="2" fill="#2a4d7c" stroke="#00bfff" stroke-width="1.5"/>
+                    <rect x="35" y="112" width="14" height="8" rx="2" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
+                </g>
+
+                <!-- Pierna derecha (animada) -->
+                <g id="right-leg" style="transform-origin: 58px 84px; animation: legWalk 0.8s ease-in-out infinite 0.4s;">
+                    <rect x="54" y="84" width="8" height="30" rx="2" fill="#2a4d7c" stroke="#00bfff" stroke-width="1.5"/>
+                    <rect x="51" y="112" width="14" height="8" rx="2" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
+                </g>
+
+                <!-- Base/Zapatos -->
+                <rect x="35" y="120" width="30" height="10" rx="3" fill="#0a0e27" stroke="#00ff96" stroke-width="2"/>
             </g>
-
-            <!-- Cuello -->
-            <rect x="42" y="38" width="16" height="8" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
-
-            <!-- Torso superior -->
-            <g id="torso">
-                <rect x="30" y="45" width="40" height="35" rx="2" fill="#2a4d7c" stroke="#00bfff" stroke-width="2"/>
-                <!-- Panel frontal -->
-                <rect x="35" y="50" width="30" height="25" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
-                <!-- Luces del pecho -->
-                <circle cx="43" cy="57" r="2" fill="#ff00ff"/>
-                <circle cx="57" cy="57" r="2" fill="#ff00ff"/>
-                <circle cx="43" cy="67" r="2" fill="#00ffff"/>
-                <circle cx="57" cy="67" r="2" fill="#00ffff"/>
-            </g>
-
-            <!-- Brazo izquierdo (animado) -->
-            <g id="left-arm" style="transform-origin: 30px 60px; animation: armSwing 0.8s ease-in-out infinite;">
-                <rect x="15" y="55" width="15" height="12" rx="3" fill="#2a4d7c" stroke="#00ff96" stroke-width="1.5"/>
-                <rect x="8" y="58" width="8" height="6" rx="2" fill="#1a3a5c" stroke="#00bfff" stroke-width="1"/>
-            </g>
-
-            <!-- Brazo derecho (animado) -->
-            <g id="right-arm" style="transform-origin: 70px 60px; animation: armSwing 0.8s ease-in-out infinite 0.4s;">
-                <rect x="70" y="55" width="15" height="12" rx="3" fill="#2a4d7c" stroke="#00ff96" stroke-width="1.5"/>
-                <rect x="84" y="58" width="8" height="6" rx="2" fill="#1a3a5c" stroke="#00bfff" stroke-width="1"/>
-            </g>
-
-            <!-- Cintura -->
-            <rect x="35" y="78" width="30" height="6" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
-
-            <!-- Pierna izquierda (animada) -->
-            <g id="left-leg" style="transform-origin: 42px 84px; animation: legWalk 0.8s ease-in-out infinite;">
-                <rect x="38" y="84" width="8" height="30" rx="2" fill="#2a4d7c" stroke="#00bfff" stroke-width="1.5"/>
-                <rect x="35" y="112" width="14" height="8" rx="2" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
-            </g>
-
-            <!-- Pierna derecha (animada) -->
-            <g id="right-leg" style="transform-origin: 58px 84px; animation: legWalk 0.8s ease-in-out infinite 0.4s;">
-                <rect x="54" y="84" width="8" height="30" rx="2" fill="#2a4d7c" stroke="#00bfff" stroke-width="1.5"/>
-                <rect x="51" y="112" width="14" height="8" rx="2" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
-            </g>
-
-            <!-- Base/Zapatos -->
-            <rect x="35" y="120" width="30" height="10" rx="3" fill="#0a0e27" stroke="#00ff96" stroke-width="2"/>
         </svg>
     </div>
 
@@ -374,21 +409,4 @@
 
         <section class="contact" id="contacto">
             <h2>Contáctanos</h2>
-            <p>📞 Teléfono: <a href="tel:+34123456789">+34 123 456 789</a></p>
-            <p>📧 Email: <a href="mailto:info@drcell.com">info@drcell.com</a></p>
-            <p>📍 Dirección: Calle Futura 42, Ciudad Tech</p>
-            <p>🕐 Horario: Lunes a Viernes 9:00 - 19:00 | Sábados 10:00 - 14:00</p>
-        </section>
-
-        <footer>
-            <p>&copy; 2026 Dr Cell - Reparaciones Móviles. Todos los derechos reservados.</p>
-        </footer>
-    </div>
-
-    <style>
-        @keyframes armSwing {
-            0%, 100% {
-                transform: rotateZ(-30deg);
-            }
-            50% {
-                transform: rotateZ
+            <p>📞 Teléf
