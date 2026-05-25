@@ -19,7 +19,6 @@
             position: relative;
         }
 
-        /* Efecto de fondo futurista */
         body::before {
             content: '';
             position: fixed;
@@ -33,7 +32,6 @@
             z-index: 0;
         }
 
-        /* Contenedor principal */
         .container {
             position: relative;
             z-index: 1;
@@ -42,7 +40,6 @@
             padding: 20px;
         }
 
-        /* Navegación */
         nav {
             display: flex;
             justify-content: space-between;
@@ -61,7 +58,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 20px rgba(0, 255, 150, 0.5);
         }
 
         nav ul {
@@ -92,7 +88,6 @@
             width: 100%;
         }
 
-        /* Sección Hero */
         .hero {
             text-align: center;
             padding: 80px 20px;
@@ -107,7 +102,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 30px rgba(0, 255, 150, 0.5);
             animation: glow 3s ease-in-out infinite;
         }
 
@@ -135,7 +129,6 @@
             box-shadow: 0 0 40px rgba(0, 255, 150, 0.8);
         }
 
-        /* Sección de Servicios */
         .services {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -171,7 +164,6 @@
             line-height: 1.6;
         }
 
-        /* Sección de Contacto */
         .contact {
             text-align: center;
             padding: 60px 20px;
@@ -200,129 +192,38 @@
             font-weight: bold;
         }
 
-        /* ROBOT ANIMADO */
-        .robot {
+        /* ROBOT REALISTA CON SVG */
+        .robot-container {
             position: fixed;
             top: 50%;
-            left: -100px;
+            left: -150px;
             transform: translateY(-50%);
-            width: 80px;
-            height: 100px;
             z-index: 5;
-            animation: runAcross 15s linear infinite;
+            animation: runAcross 20s linear infinite;
+            width: 140px;
+            height: 200px;
         }
 
         @keyframes runAcross {
             0% {
-                left: -100px;
+                left: -150px;
                 transform: translateY(-50%) scaleX(1);
             }
             50% {
                 transform: translateY(-50%) scaleX(1);
             }
             100% {
-                left: 100%;
+                left: 100vw;
                 transform: translateY(-50%) scaleX(-1);
             }
         }
 
-        .robot-head {
-            width: 35px;
-            height: 35px;
-            background: linear-gradient(135deg, #ff00ff, #00ffff);
-            border-radius: 8px;
-            margin: 0 auto 5px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-            position: relative;
+        svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 150, 0.6));
         }
 
-        .robot-head::before {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #ffff00;
-            border-radius: 50%;
-            top: 10px;
-            left: 8px;
-            box-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
-        }
-
-        .robot-head::after {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #ffff00;
-            border-radius: 50%;
-            top: 10px;
-            right: 8px;
-            box-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
-        }
-
-        .robot-body {
-            width: 40px;
-            height: 45px;
-            background: linear-gradient(90deg, #00ff96, #00bfff);
-            margin: 0 auto 5px;
-            border-radius: 5px;
-            box-shadow: 0 0 15px rgba(0, 255, 150, 0.8);
-            position: relative;
-        }
-
-        .robot-body::before {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 20px;
-            background: #ff00ff;
-            left: 8px;
-            top: 5px;
-            border-radius: 3px;
-        }
-
-        .robot-body::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 20px;
-            background: #ff00ff;
-            right: 8px;
-            top: 5px;
-            border-radius: 3px;
-        }
-
-        .robot-legs {
-            display: flex;
-            gap: 5px;
-            justify-content: center;
-        }
-
-        .robot-leg {
-            width: 6px;
-            height: 20px;
-            background: linear-gradient(90deg, #ff00ff, #00ffff);
-            border-radius: 3px;
-            animation: legRun 0.8s ease-in-out infinite;
-            box-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
-        }
-
-        .robot-leg:last-child {
-            animation: legRun 0.8s ease-in-out infinite 0.4s;
-        }
-
-        @keyframes legRun {
-            0%, 100% {
-                transform: rotateZ(0deg);
-                transform-origin: top center;
-            }
-            50% {
-                transform: rotateZ(30deg);
-                transform-origin: top center;
-            }
-        }
-
-        /* Animación de brillo */
         @keyframes glow {
             0%, 100% {
                 text-shadow: 0 0 20px rgba(0, 255, 150, 0.5);
@@ -332,7 +233,6 @@
             }
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 40px;
@@ -342,7 +242,6 @@
             z-index: 2;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 42px;
@@ -357,26 +256,80 @@
                 font-size: 14px;
             }
 
-            .robot {
-                width: 60px;
-                height: 80px;
+            .robot-container {
+                width: 100px;
+                height: 150px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Robot corriendo -->
-    <div class="robot">
-        <div class="robot-head"></div>
-        <div class="robot-body"></div>
-        <div class="robot-legs">
-            <div class="robot-leg"></div>
-            <div class="robot-leg"></div>
-        </div>
+    <!-- Robot realista corriendo -->
+    <div class="robot-container">
+        <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cabeza -->
+            <g id="head">
+                <rect x="35" y="5" width="30" height="35" rx="3" fill="#2a4d7c" stroke="#00ff96" stroke-width="2"/>
+                <!-- Cara frontal metálica -->
+                <rect x="40" y="10" width="20" height="25" rx="2" fill="#1a3a5c" stroke="#00bfff" stroke-width="1"/>
+                <!-- Ojo izquierdo -->
+                <circle cx="47" cy="18" r="4" fill="#ffff00"/>
+                <circle cx="47" cy="18" r="2.5" fill="#000"/>
+                <!-- Ojo derecho -->
+                <circle cx="58" cy="18" r="4" fill="#ffff00"/>
+                <circle cx="58" cy="18" r="2.5" fill="#000"/>
+                <!-- Línea de boca -->
+                <line x1="47" y1="30" x2="58" y2="30" stroke="#00ff96" stroke-width="1.5"/>
+            </g>
+
+            <!-- Cuello -->
+            <rect x="42" y="38" width="16" height="8" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
+
+            <!-- Torso superior -->
+            <g id="torso">
+                <rect x="30" y="45" width="40" height="35" rx="2" fill="#2a4d7c" stroke="#00bfff" stroke-width="2"/>
+                <!-- Panel frontal -->
+                <rect x="35" y="50" width="30" height="25" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
+                <!-- Luces del pecho -->
+                <circle cx="43" cy="57" r="2" fill="#ff00ff"/>
+                <circle cx="57" cy="57" r="2" fill="#ff00ff"/>
+                <circle cx="43" cy="67" r="2" fill="#00ffff"/>
+                <circle cx="57" cy="67" r="2" fill="#00ffff"/>
+            </g>
+
+            <!-- Brazo izquierdo (animado) -->
+            <g id="left-arm" style="transform-origin: 30px 60px; animation: armSwing 0.8s ease-in-out infinite;">
+                <rect x="15" y="55" width="15" height="12" rx="3" fill="#2a4d7c" stroke="#00ff96" stroke-width="1.5"/>
+                <rect x="8" y="58" width="8" height="6" rx="2" fill="#1a3a5c" stroke="#00bfff" stroke-width="1"/>
+            </g>
+
+            <!-- Brazo derecho (animado) -->
+            <g id="right-arm" style="transform-origin: 70px 60px; animation: armSwing 0.8s ease-in-out infinite 0.4s;">
+                <rect x="70" y="55" width="15" height="12" rx="3" fill="#2a4d7c" stroke="#00ff96" stroke-width="1.5"/>
+                <rect x="84" y="58" width="8" height="6" rx="2" fill="#1a3a5c" stroke="#00bfff" stroke-width="1"/>
+            </g>
+
+            <!-- Cintura -->
+            <rect x="35" y="78" width="30" height="6" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
+
+            <!-- Pierna izquierda (animada) -->
+            <g id="left-leg" style="transform-origin: 42px 84px; animation: legWalk 0.8s ease-in-out infinite;">
+                <rect x="38" y="84" width="8" height="30" rx="2" fill="#2a4d7c" stroke="#00bfff" stroke-width="1.5"/>
+                <rect x="35" y="112" width="14" height="8" rx="2" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
+            </g>
+
+            <!-- Pierna derecha (animada) -->
+            <g id="right-leg" style="transform-origin: 58px 84px; animation: legWalk 0.8s ease-in-out infinite 0.4s;">
+                <rect x="54" y="84" width="8" height="30" rx="2" fill="#2a4d7c" stroke="#00bfff" stroke-width="1.5"/>
+                <rect x="51" y="112" width="14" height="8" rx="2" fill="#1a3a5c" stroke="#00ff96" stroke-width="1"/>
+            </g>
+
+            <!-- Base/Zapatos -->
+            <rect x="35" y="120" width="30" height="10" rx="3" fill="#0a0e27" stroke="#00ff96" stroke-width="2"/>
+        </svg>
     </div>
 
     <div class="container">
-        <!-- Navegación -->
         <nav>
             <div class="logo">⚡ Dr Cell</div>
             <ul>
@@ -386,14 +339,12 @@
             </ul>
         </nav>
 
-        <!-- Hero -->
         <section class="hero" id="inicio">
             <h1>Dr Cell - Reparación Futurista de Móviles</h1>
             <p>Tecnología avanzada para tu dispositivo móvil</p>
             <a href="#contacto" class="cta-button">Contáctanos Ahora</a>
         </section>
 
-        <!-- Servicios -->
         <section class="services" id="servicios">
             <div class="service-card">
                 <h3>🔧 Reparación de Pantallas</h3>
@@ -421,7 +372,6 @@
             </div>
         </section>
 
-        <!-- Contacto -->
         <section class="contact" id="contacto">
             <h2>Contáctanos</h2>
             <p>📞 Teléfono: <a href="tel:+34123456789">+34 123 456 789</a></p>
@@ -430,10 +380,15 @@
             <p>🕐 Horario: Lunes a Viernes 9:00 - 19:00 | Sábados 10:00 - 14:00</p>
         </section>
 
-        <!-- Footer -->
         <footer>
             <p>&copy; 2026 Dr Cell - Reparaciones Móviles. Todos los derechos reservados.</p>
         </footer>
     </div>
-</body>
-</html>
+
+    <style>
+        @keyframes armSwing {
+            0%, 100% {
+                transform: rotateZ(-30deg);
+            }
+            50% {
+                transform: rotateZ
