@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr Cell - Reparación Futurista</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Dr Cell - Reparación de Móviles Futurista</title>
     <style>
         * {
             margin: 0;
@@ -13,467 +12,428 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: #0a0e27;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1b2e 100%);
             color: #e0e0e0;
             overflow-x: hidden;
+            position: relative;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ANIMACIONES */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(30px); }
-        }
-
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88; }
-            50% { text-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88, 0 0 60px #00ff88; }
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes rotate3d {
-            0% { transform: rotateX(0deg) rotateY(0deg); }
-            100% { transform: rotateX(5deg) rotateY(10deg); }
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.5); }
-            50% { box-shadow: 0 0 60px rgba(0, 255, 136, 0.9); }
-        }
-
-        /* HEADER */
-        header {
-            background: linear-gradient(135deg, rgba(10, 14, 39, 0.98), rgba(20, 25, 50, 0.98));
-            padding: 1.5rem 0;
+        /* Efecto de fondo futurista */
+        body::before {
+            content: '';
             position: fixed;
-            width: 100%;
             top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid #00ff88;
-            box-shadow: 0 0 50px rgba(0, 255, 136, 0.4);
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 150, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 150, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        header .container {
+        /* Contenedor principal */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navegación */
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid rgba(0, 255, 150, 0.3);
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #00ff88, #00ffff);
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff96, #00bfff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: glow 2s ease-in-out infinite;
-            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(0, 255, 150, 0.5);
         }
 
-        nav {
+        nav ul {
             display: flex;
-            gap: 2.5rem;
+            list-style: none;
+            gap: 30px;
         }
 
         nav a {
             color: #e0e0e0;
             text-decoration: none;
-            font-weight: 500;
+            transition: 0.3s;
             position: relative;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #00ff88, #00ffff);
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, #00ff96, #00bfff);
+            transition: width 0.3s;
         }
 
         nav a:hover::after {
             width: 100%;
         }
 
-        nav a:hover {
-            color: #00ff88;
-        }
-
-        /* HERO */
+        /* Sección Hero */
         .hero {
-            margin-top: 80px;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 60px 0;
+            text-align: center;
+            padding: 80px 20px;
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero-left {
-            flex: 1;
-            animation: slideInDown 1s ease-out;
             z-index: 2;
-            position: relative;
         }
 
         .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            letter-spacing: 3px;
-            color: #00ff88;
-            animation: glow 2s ease-in-out infinite;
-            line-height: 1;
+            font-size: 64px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00ff96, #00bfff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 255, 150, 0.5);
+            animation: glow 3s ease-in-out infinite;
         }
 
-        .hero-subtitle {
-            font-size: 1.4rem;
-            color: #00ffff;
-            margin-bottom: 1.5rem;
-            animation: slideInUp 1s ease-out 0.2s both;
-            font-weight: 300;
-        }
-
-        .hero-desc {
-            font-size: 1.1rem;
-            color: #b0b0b0;
-            margin-bottom: 3rem;
-            animation: slideInUp 1s ease-out 0.4s both;
-            max-width: 500px;
-            line-height: 1.8;
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #a0a0a0;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 18px 50px;
-            font-size: 1.1rem;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #00ff96, #00bfff);
             color: #0a0e27;
-            background: linear-gradient(135deg, #00ff88, #00ffff);
-            border: none;
+            text-decoration: none;
             border-radius: 50px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            animation: slideInUp 1s ease-out 0.6s both;
-            transition: all 0.4s ease;
-            letter-spacing: 1px;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 150, 0.5);
+            border: 2px solid #00ff96;
         }
 
         .cta-button:hover {
-            box-shadow: 0 0 50px rgba(0, 255, 136, 0.9);
-            transform: scale(1.08);
-        }
-
-        .cta-button:active {
-            transform: scale(0.95);
-        }
-
-        /* TELÉFONO 3D */
-        .hero-right {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1200px;
-            z-index: 3;
-            position: relative;
-        }
-
-        .phone-wrapper {
-            position: relative;
-            width: 320px;
-            height: 640px;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .phone {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: 50px;
-            padding: 12px;
-            box-shadow: 
-                0 0 80px rgba(0, 255, 136, 0.7),
-                0 0 120px rgba(0, 255, 255, 0.4),
-                inset 0 0 40px rgba(0, 255, 136, 0.1);
-            border: 3px solid #00ff88;
-            position: relative;
-            overflow: hidden;
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-
-        .notch {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 25px;
-            background: #0a0e27;
-            border-radius: 0 0 25px 25px;
-            z-index: 20;
-        }
-
-        .screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #0a0e27, #1a1f3a);
-            border-radius: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .screen-content {
-            text-align: center;
-            z-index: 10;
-            position: relative;
-        }
-
-        .phone-emoji {
-            font-size: 6rem;
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.7));
-        }
-
-        .phone-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: #00ff88;
-            text-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
-            animation: glow 2s ease-in-out infinite;
-            letter-spacing: 2px;
-        }
-
-        .phone-text {
-            font-size: 0.95rem;
-            color: #00ffff;
-            margin-top: 15px;
-            animation: slideInUp 1s ease-out 0.8s both;
-        }
-
-        .button-phone {
-            margin-top: 30px;
-            padding: 10px 25px;
-            background: #00ff88;
-            color: #0a0e27;
-            border: none;
-            border-radius: 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 0.9rem;
-            animation: slideInUp 1s ease-out 1s both;
-            transition: all 0.3s ease;
-        }
-
-        .button-phone:hover {
-            background: #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
             transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(0, 255, 150, 0.8);
         }
 
-        /* SERVICIOS */
-        .servicios {
-            padding: 100px 0;
-            background: linear-gradient(180deg, #0a0e27, #1a1f3a);
-            position: relative;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            text-align: center;
-            margin-bottom: 5rem;
-            color: #00ff88;
-            animation: glow 2s ease-in-out infinite;
-            letter-spacing: 2px;
-        }
-
-        .services-grid {
+        /* Sección de Servicios */
+        .services {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 80px 0;
+            position: relative;
+            z-index: 2;
         }
 
         .service-card {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 255, 255, 0.05));
-            border: 2px solid rgba(0, 255, 136, 0.3);
-            padding: 2.5rem;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            animation: slideInUp 0.8s ease-out;
+            background: rgba(15, 27, 46, 0.8);
+            border: 2px solid rgba(0, 255, 150, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
         }
 
         .service-card:hover {
-            border-color: #00ff88;
-            box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
-            transform: translateY(-15px);
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 255, 0.1));
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .service-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: #00ffff;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-
-        .service-card p {
-            color: #b0b0b0;
-            line-height: 1.6;
-        }
-
-        /* CARACTERÍSTICAS */
-        .caracteristicas {
-            padding: 100px 0;
-            background: linear-gradient(180deg, #1a1f3a, #0a0e27);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-box {
-            text-align: center;
-            animation: slideInUp 0.8s ease-out;
-            padding: 2rem;
-            border: 2px solid rgba(0, 255, 136, 0.3);
-            border-radius: 15px;
-            background: rgba(0, 255, 136, 0.05);
-        }
-
-        .stat-number {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            color: #00ff88;
-            animation: glow 2s ease-in-out infinite;
-        }
-
-        .stat-label {
-            color: #00ffff;
-            font-family: 'Orbitron', sans-serif;
-            margin-top: 0.5rem;
-        }
-
-        /* CONTACTO */
-        .contacto {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #0a0e27, #1a1f3a);
-            text-align: center;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .contact-item {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 255, 255, 0.05));
-            border: 2px solid rgba(0, 255, 136, 0.3);
-            padding: 2rem;
-            border-radius: 15px;
-            transition: all 0.4s ease;
-            animation: slideInUp 0.8s ease-out;
-        }
-
-        .contact-item:hover {
-            border-color: #00ff88;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+            border-color: #00ff96;
+            box-shadow: 0 0 30px rgba(0, 255, 150, 0.5);
             transform: translateY(-10px);
         }
 
-        .contact-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            animation: float 3s ease-in-out infinite;
+        .service-card h3 {
+            color: #00ff96;
+            margin-bottom: 15px;
+            font-size: 22px;
         }
 
-        .contact-item h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: #00ffff;
-            margin-bottom: 0.5rem;
+        .service-card p {
+            color: #a0a0a0;
+            line-height: 1.6;
         }
 
-        .contact-item p {
-            color: #b0b0b0;
-        }
-
-        /* FOOTER */
-        footer {
-            background: #050810;
-            padding: 2rem 0;
+        /* Sección de Contacto */
+        .contact {
             text-align: center;
-            border-top: 2px solid #00ff88;
-            color: #666;
+            padding: 60px 20px;
+            background: rgba(0, 255, 150, 0.05);
+            border: 2px solid rgba(0, 255, 150, 0.3);
+            border-radius: 15px;
+            margin: 80px 0;
+            position: relative;
+            z-index: 2;
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-            }
+        .contact h2 {
+            color: #00ff96;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
 
-            .hero-left {
-                margin-bottom: 3rem;
-            }
+        .contact p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
 
+        .contact a {
+            color: #00ff96;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* ROBOT ANIMADO */
+        .robot {
+            position: fixed;
+            top: 50%;
+            left: -100px;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 100px;
+            z-index: 5;
+            animation: runAcross 15s linear infinite;
+        }
+
+        @keyframes runAcross {
+            0% {
+                left: -100px;
+                transform: translateY(-50%) scaleX(1);
+            }
+            50% {
+                transform: translateY(-50%) scaleX(1);
+            }
+            100% {
+                left: 100%;
+                transform: translateY(-50%) scaleX(-1);
+            }
+        }
+
+        .robot-head {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            border-radius: 8px;
+            margin: 0 auto 5px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            position: relative;
+        }
+
+        .robot-head::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ffff00;
+            border-radius: 50%;
+            top: 10px;
+            left: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+        }
+
+        .robot-head::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ffff00;
+            border-radius: 50%;
+            top: 10px;
+            right: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+        }
+
+        .robot-body {
+            width: 40px;
+            height: 45px;
+            background: linear-gradient(90deg, #00ff96, #00bfff);
+            margin: 0 auto 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 255, 150, 0.8);
+            position: relative;
+        }
+
+        .robot-body::before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 20px;
+            background: #ff00ff;
+            left: 8px;
+            top: 5px;
+            border-radius: 3px;
+        }
+
+        .robot-body::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 20px;
+            background: #ff00ff;
+            right: 8px;
+            top: 5px;
+            border-radius: 3px;
+        }
+
+        .robot-legs {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .robot-leg {
+            width: 6px;
+            height: 20px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            border-radius: 3px;
+            animation: legRun 0.8s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+        }
+
+        .robot-leg:last-child {
+            animation: legRun 0.8s ease-in-out infinite 0.4s;
+        }
+
+        @keyframes legRun {
+            0%, 100% {
+                transform: rotateZ(0deg);
+                transform-origin: top center;
+            }
+            50% {
+                transform: rotateZ(30deg);
+                transform-origin: top center;
+            }
+        }
+
+        /* Animación de brillo */
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(0, 255, 150, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 40px rgba(0, 255, 150, 0.8);
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 2px solid rgba(0, 255, 150, 0.3);
+            color: #a0a0a0;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
             .hero h1 {
+                font-size: 42px;
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 15px;
+                font-size: 14px;
+            }
+
+            .robot {
+                width: 60px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Robot corriendo -->
+    <div class="robot">
+        <div class="robot-head"></div>
+        <div class="robot-body"></div>
+        <div class="robot-legs">
+            <div class="robot-leg"></div>
+            <div class="robot-leg"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navegación -->
+        <nav>
+            <div class="logo">⚡ Dr Cell</div>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hero -->
+        <section class="hero" id="inicio">
+            <h1>Dr Cell - Reparación Futurista de Móviles</h1>
+            <p>Tecnología avanzada para tu dispositivo móvil</p>
+            <a href="#contacto" class="cta-button">Contáctanos Ahora</a>
+        </section>
+
+        <!-- Servicios -->
+        <section class="services" id="servicios">
+            <div class="service-card">
+                <h3>🔧 Reparación de Pantallas</h3>
+                <p>Reemplazamos pantallas rotas con tecnología de última generación. Garantía de 12 meses.</p>
+            </div>
+            <div class="service-card">
+                <h3>🔋 Cambio de Batería</h3>
+                <p>Baterías originales con máxima capacidad. Recupera la autonomía de tu móvil.</p>
+            </div>
+            <div class="service-card">
+                <h3>📱 Reparación de Circuitos</h3>
+                <p>Diagnóstico y reparación profesional de placas base y componentes electrónicos.</p>
+            </div>
+            <div class="service-card">
+                <h3>💾 Recuperación de Datos</h3>
+                <p>Recupera tus fotos, contactos y archivos importantes con nuestros expertos.</p>
+            </div>
+            <div class="service-card">
+                <h3>🔒 Desbloqueo Seguro</h3>
+                <p>Desbloqueamos móviles de forma segura y rápida, sin perder datos.</p>
+            </div>
+            <div class="service-card">
+                <h3>⚙️ Mantenimiento Preventivo</h3>
+                <p>Limpieza, optimización y revisión completa de tu dispositivo.</p>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section class="contact" id="contacto">
+            <h2>Contáctanos</h2>
+            <p>📞 Teléfono: <a href="tel:+34123456789">+34 123 456 789</a></p>
+            <p>📧 Email: <a href="mailto:info@drcell.com">info@drcell.com</a></p>
+            <p>📍 Dirección: Calle Futura 42, Ciudad Tech</p>
+            <p>🕐 Horario: Lunes a Viernes 9:00 - 19:00 | Sábados 10:00 - 14:00</p>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 Dr Cell - Reparaciones Móviles. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>
