@@ -19,14 +19,13 @@
             overflow-x: hidden;
         }
 
-        /* Estilos Globales */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* Animaciones Globales */
+        /* ANIMACIONES */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(20px); }
@@ -35,11 +34,6 @@
         @keyframes glow {
             0%, 100% { text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88; }
             50% { text-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88, 0 0 60px #00ff88; }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         @keyframes slideInDown {
@@ -64,9 +58,14 @@
             }
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+        @keyframes scan-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         @keyframes neon-flicker {
@@ -80,23 +79,7 @@
             }
         }
 
-        @keyframes scan-line {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
-
-        @keyframes particles {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty));
-            }
-        }
-
-        /* Header */
+        /* HEADER */
         header {
             background: linear-gradient(135deg, rgba(10, 14, 39, 0.95), rgba(20, 25, 50, 0.95));
             padding: 1.5rem 0;
@@ -151,7 +134,7 @@
             width: 100%;
         }
 
-        /* Hero Section */
+        /* HERO SECTION */
         .hero {
             margin-top: 80px;
             height: 100vh;
@@ -171,8 +154,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
-                linear-gradient(90deg, transparent 0%, rgba(0, 255, 136, 0.1) 50%, transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 136, 0.1) 50%, transparent 100%);
             animation: scan-line 3s linear infinite;
             pointer-events: none;
         }
@@ -181,6 +163,7 @@
             position: relative;
             z-index: 2;
             animation: slideInDown 1s ease-out;
+            max-width: 800px;
         }
 
         .hero h1 {
@@ -238,53 +221,7 @@
             transform: scale(1.05);
         }
 
-        /* Sección Flotante */
-        .floating-phone {
-            position: absolute;
-            right: 10%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 300px;
-            height: 400px;
-            background: linear-gradient(135deg, #00ff88, #00ffff);
-            padding: 10px;
-            border-radius: 40px;
-            box-shadow: 0 0 50px rgba(0, 255, 136, 0.4);
-            animation: float 3s ease-in-out infinite;
-            display: none;
-        }
-
-        .floating-phone::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 25px;
-            background: #0a0e27;
-            border-radius: 0 0 20px 20px;
-            z-index: 1;
-        }
-
-        .floating-phone .screen {
-            width: 100%;
-            height: 100%;
-            background: #0a0e27;
-            border-radius: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-
-        @media (min-width: 1200px) {
-            .floating-phone {
-                display: block;
-            }
-        }
-
-        /* Servicios */
+        /* SERVICIOS */
         .servicios {
             padding: 100px 0;
             position: relative;
@@ -305,7 +242,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            perspective: 1000px;
         }
 
         .servicio-card {
@@ -335,7 +271,7 @@
         .servicio-card:hover {
             border-color: #00ff88;
             box-shadow: 0 0 40px rgba(0, 255, 136, 0.5);
-            transform: translateY(-20px) rotateX(5deg);
+            transform: translateY(-20px);
             background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 255, 0.1));
         }
 
@@ -363,7 +299,7 @@
             line-height: 1.6;
         }
 
-        /* Características */
+        /* CARACTERÍSTICAS */
         .caracteristicas {
             padding: 100px 0;
             background: linear-gradient(180deg, #1a1f3a 0%, #0a0e27 100%);
@@ -396,23 +332,11 @@
             font-size: 1.3rem;
         }
 
-        /* Contacto */
+        /* CONTACTO */
         .contacto {
             padding: 100px 0;
             background: linear-gradient(135deg, #0a0e27, #1a1f3a, #0a0e27);
             position: relative;
-        }
-
-        .contacto::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1), transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1), transparent 50%);
-            pointer-events: none;
         }
 
         .contacto-content {
@@ -460,7 +384,7 @@
             color: #b0b0b0;
         }
 
-        /* Footer */
+        /* FOOTER */
         footer {
             background: #050810;
             padding: 2rem 0;
@@ -469,5 +393,75 @@
             color: #666;
         }
 
-        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.8rem;
+            }
 
+            nav a {
+                margin-left: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="logo">📱 DR CELL</div>
+            <nav>
+                <a href="#servicios">Servicios</a>
+                <a href="#caracteristicas">Por Qué Nosotros</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>DR CELL</h1>
+            <p>Tu Teléfono Merece lo Mejor</p>
+            <p style="font-size: 1.1rem; color: #00ff88; margin-bottom: 2rem;">Reparación Futurista. Calidad Garantizada.</p>
+            <button class="cta-button">RESERVA AHORA</button>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="servicios" id="servicios">
+        <div class="container">
+            <h2 class="section-title">NUESTROS SERVICIOS</h2>
+            <div class="servicios-grid">
+                <div class="servicio-card">
+                    <div class="servicio-icon">🖥️</div>
+                    <h3>Reparación de Pantalla</h3>
+                    <p>Cambio de pantalla LCD, OLED y cristal protector con tecnología de última generación</p>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-icon">🔋</div>
+                    <h3>Cambio de Batería</h3>
+                    <p>Baterías originales de máxima capacidad con garantía de 2 años</p>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-icon">💧</div>
+                    <h3>Reparación por Agua</h3>
+                    <p>Recuperación avanzada de dispositivos dañados por líquidos</p>
+                </div>
+                <div class="servicio-card">
+                    <div class="servicio-icon">⚡</div>
+                    <h3>Cambio de Cargador</h3>
+                    <p>Puerto de carga USB-C y Lightning de re
